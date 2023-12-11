@@ -33,7 +33,7 @@ class Server {
     dataBase() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                dbconnection_1.db.initialize();
+                yield dbconnection_1.db.initialize();
                 console.log(`Data Base Inicialized`);
             }
             catch (error) {

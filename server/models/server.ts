@@ -25,7 +25,7 @@ export class Server {
 
     async dataBase() {
         try {
-            db.initialize()
+            await db.initialize()
             console.log(`Data Base Inicialized`);
         } catch (error) {
             console.error(`Data Base not inicialized`, error)
