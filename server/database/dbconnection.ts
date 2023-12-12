@@ -1,7 +1,7 @@
 import { DataSource } from "typeorm"
 import "reflect-metadata"
 import { User } from "../models/user.entity"
-import { Products } from "../models/product.entity"
+import { Product } from "../models/product.entity"
 
 export const db = new DataSource({
     type: "mysql",
@@ -11,5 +11,5 @@ export const db = new DataSource({
     password: "ProjectStore",
     database: "ProjectStore",
     synchronize: true,
-    entities: [User, Products],
+    entities: [User, Product],
 })

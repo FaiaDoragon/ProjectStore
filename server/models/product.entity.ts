@@ -1,8 +1,9 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { User } from "./user.entity";
 
 
 @Entity()
-export class Products {
+export class Product extends BaseEntity {
 
     @PrimaryColumn()
     id!: string 
@@ -30,16 +31,18 @@ export class Products {
 
     @Column()
     image!: string
-
-    @Column()
-    createdBy!: string
-
-    @Column()
-    updatedby!: string
     
-    @CreateDateColumn()
-    createAt: Date = new Date()
+    @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+    createAt!: Date 
     
-    @UpdateDateColumn()
-    updateAt: Date = new Date()
+    @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
+    updateAt!: Date
+
+    // campos de relacion
+
+    @ManyToOne(() => User, user => user.createdProducts)
+    createdBy!: User;
+
+    @ManyToOne(() => User, user => user.updatedProducts)
+    updatedBy!: User;
 }

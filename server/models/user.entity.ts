@@ -1,4 +1,5 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, OneToMany, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { Product } from "./product.entity";
 
 //Entity to use on dbconnection for Products
 @Entity()
@@ -24,54 +25,20 @@ export class User extends BaseEntity {
     
     @Column()
     Rol!: boolean
+
+    @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+    createAt!: Date
     
-    @CreateDateColumn()
-    createAt: Date = new Date()
-    
-    @UpdateDateColumn()
-    updateAt: Date = new Date()
+    @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
+    updateAt!: Date
+
+    //campos de relacion
+
+    @OneToMany(() => Product, product => product.createdBy)
+    createdProducts!: Product[];
+
+    @OneToMany(() => Product, product => product.updatedBy)
+    updatedProducts!: Product[];
 }
 
 //Entity to use on dbconnection for Products
-@Entity()
-export class Products {
-
-    @PrimaryColumn()
-    id!: string 
-
-    @Column()
-    name!: string 
-
-    @Column()
-    category!: string 
-
-    @Column({type: "float"})
-    price!: number
-
-    @Column()
-    currency!: string 
-
-    @Column()
-    stock!: number
-    
-    @Column({ type: "boolean", default: true})
-    status!: boolean
-
-    @Column()
-    description!: string 
-
-    @Column()
-    image!: string
-
-    @Column()
-    createdBy!: string
-
-    @Column()
-    updatedby!: string
-    
-    @CreateDateColumn()
-    createAt: Date = new Date()
-    
-    @UpdateDateColumn()
-    updateAt: Date = new Date()
-}
