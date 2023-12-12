@@ -32,11 +32,11 @@ export class Product extends BaseEntity {
     @Column()
     image!: string
     
-    @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-    createAt!: Date 
+    @CreateDateColumn()
+    createdAt: Date = new Date()
     
-    @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
-    updateAt!: Date
+    @UpdateDateColumn()
+    updatedAt: Date = new Date()
 
     // campos de relacion
 
