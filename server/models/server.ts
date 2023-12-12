@@ -1,15 +1,15 @@
 import express, { Application } from "express";
 import cors from "cors";
-import env from 'env-var'
 import 'dotenv/config'
 import { db } from "../database/dbconnection";
+import { envs } from "../helpers/envs";
 
 export class Server {
     private app : Application;
     private port : number;
     constructor() {
         this.app = express()
-        this.port = env.get('PORT').required().asPortNumber()
+        this.port = envs.PORT
 
         this.middlewares()
 
