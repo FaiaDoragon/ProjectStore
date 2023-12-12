@@ -1,5 +1,6 @@
 client/node_modules
 
+docker-compose.yml
 datos_mysql
 
 server/node_modules
