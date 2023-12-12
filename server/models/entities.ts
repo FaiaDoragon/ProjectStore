@@ -1,5 +1,6 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from "typeorm";
 
+//Entity to use on dbconnection for Products
 @Entity()
 export class User extends BaseEntity {
 
@@ -31,6 +32,7 @@ export class User extends BaseEntity {
     updateAt: Date = new Date()
 }
 
+//Entity to use on dbconnection for Products
 @Entity()
 export class Products {
 
