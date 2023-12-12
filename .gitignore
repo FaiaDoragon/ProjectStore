@@ -1,5 +1,7 @@
 client/node_modules
 
+datos_mysql
+
 server/node_modules
 
 .env

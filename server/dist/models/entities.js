@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Products = exports.User = void 0;
 const typeorm_1 = require("typeorm");
+//Entity to use on dbconnection for Products
 let User = class User extends typeorm_1.BaseEntity {
     constructor() {
         super(...arguments);
@@ -65,6 +66,7 @@ __decorate([
 exports.User = User = __decorate([
     (0, typeorm_1.Entity)()
 ], User);
+//Entity to use on dbconnection for Products
 let Products = class Products {
     constructor() {
         this.id = '';

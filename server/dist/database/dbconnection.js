@@ -9,8 +9,8 @@ exports.db = new typeorm_1.DataSource({
     host: "localhost",
     port: 3306,
     username: "root",
-    password: "123123",
-    database: "test",
+    password: "ProjectStore",
+    database: "ProjectStore",
     synchronize: true,
     entities: [entities_1.User, entities_1.Products],
 });

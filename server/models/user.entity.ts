@@ -5,25 +5,25 @@ import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDate
 export class User extends BaseEntity {
 
     @PrimaryColumn()
-    id: string = ''
+    id!: string 
 
     @Column({ unique : true })
-    name: string = ''
+    name!: string 
 
     @Column()
-    lastname: string = ''
+    lastname!: string
     
     @Column({ unique: true })
-    correo : string = ''
+    correo!: string
     
     @Column()
-    password: string = ''
+    password!: string
     
     @Column({ type: "boolean", default: true})
-    status: boolean = true
+    status!: boolean 
     
     @Column()
-    Rol: boolean = true
+    Rol!: boolean
     
     @CreateDateColumn()
     createAt: Date = new Date()
@@ -37,37 +37,37 @@ export class User extends BaseEntity {
 export class Products {
 
     @PrimaryColumn()
-    id: string = ''
+    id!: string 
 
     @Column()
-    name: string = ''
+    name!: string 
 
     @Column()
-    category: string = ''
+    category!: string 
 
     @Column({type: "float"})
-    price: number = 0
+    price!: number
 
     @Column()
-    currency : string = ''
+    currency!: string 
 
     @Column()
-    stock: number = 0
+    stock!: number
     
     @Column({ type: "boolean", default: true})
-    status: boolean = true
+    status!: boolean
 
     @Column()
-    description: string = 'true'
+    description!: string 
 
     @Column()
-    image: string = 'true'
+    image!: string
 
     @Column()
-    createdBy: string = ''
+    createdBy!: string
 
     @Column()
-    updatedby: string = ''
+    updatedby!: string
     
     @CreateDateColumn()
     createAt: Date = new Date()
