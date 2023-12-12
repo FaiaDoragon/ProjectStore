@@ -3,10 +3,16 @@ import cors from "cors";
 import env from 'env-var'
 import 'dotenv/config'
 import { db } from "../database/dbconnection";
+import products from "../routes/produts.route";
 
 export class Server {
     private app : Application;
     private port : number;
+    private path = {
+        auth: "/auth",
+        user: "/user",
+        products: "/products"
+    }
     constructor() {
         this.app = express()
         this.port = env.get('PORT').required().asPortNumber()
@@ -33,7 +39,7 @@ export class Server {
     }
 
     routes() {
-
+        this.app.use(this.path.products, products)
     }
 
     listen(){
