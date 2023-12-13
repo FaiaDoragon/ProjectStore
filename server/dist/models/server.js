@@ -18,7 +18,7 @@ const cors_1 = __importDefault(require("cors"));
 const env_var_1 = __importDefault(require("env-var"));
 require("dotenv/config");
 const dbconnection_1 = require("../database/dbconnection");
-const produts_route_1 = __importDefault(require("../routes/produts.route"));
+const products_routes_1 = __importDefault(require("../routes/products.routes"));
 class Server {
     constructor() {
         this.path = {
@@ -48,7 +48,7 @@ class Server {
         });
     }
     routes() {
-        this.app.use(this.path.products, produts_route_1.default);
+        this.app.use(this.path.products, products_routes_1.default);
     }
     listen() {
         this.app.listen(this.port, () => {

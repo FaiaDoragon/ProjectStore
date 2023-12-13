@@ -1,6 +1,6 @@
-import { DataSource, getRepository } from "typeorm";
+import { DataSource } from "typeorm";
 import { db } from "../database/dbconnection";
-import { Product } from "../models/product.entity";
+import { Product } from '../models/product.entity';
 import { Response, Request } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import { Repository } from "./repository";
@@ -47,11 +47,9 @@ export class MysqlRepository implements Repository<void> {
       image
     } = req.body
 
-    const id = uuidv4();
     try {
 
       const products = Product.create({
-        id,
         name,
         category,
         stock,
@@ -69,7 +67,7 @@ export class MysqlRepository implements Repository<void> {
       });
     } catch (error: any) {
       res.status(500).json({
-        msg: "Comuniquese con el Administrador",
+        msg: "Error al crear el producto",
         error: error.message,
       });
     }
@@ -77,17 +75,53 @@ export class MysqlRepository implements Repository<void> {
 
   async getOne(req: Request, res: Response): Promise<void> {
 
+    const id = req.params.id
+
+    try {
+
+      const product = await Product.findOneBy({
+        id
+      });
+
+      if (!product) {
+        res.status(404).json({ msg: `No se encontro producto con el id: ${id}` })
+        return;
+      }
+
+      res.status(200).json({
+        msg: "producto encontrado",
+        product
+      })
+
+    } catch (error: any) {
+      res.status(500).json({
+        msg: "Error al intengar obtener producto por id",
+        error: error.message,
+      });
+    }
   }
 
-  async getAllByCategory (req: Request, res: Response): Promise<void> {
+  async getAllByCategory(req: Request, res: Response): Promise<void> {
+    try {
 
+    } catch (error) {
+
+    }
   }
 
   async update(req: Request, res: Response): Promise<void> {
+    try {
 
+    } catch (error) {
+
+    }
   }
 
   async delete(req: Request, res: Response): Promise<void> {
+    try {
 
+    } catch (error) {
+
+    }
   }
 } 

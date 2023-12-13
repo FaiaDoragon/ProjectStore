@@ -1,12 +1,13 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { User } from "./user.entity";
+import { v4 as uuidv4 } from 'uuid';
 
 
 @Entity()
 export class Product extends BaseEntity {
 
-    @PrimaryColumn({ unique : true})
-    id!: string 
+    @PrimaryColumn()
+    id: string = uuidv4()
 
     @Column()
     name!: string 

@@ -17,7 +17,7 @@ export class Products {
     }
 
     async getOneProductById( req:Request, res: Response ) {
-
+        this.service.findById(req, res)
     }
 
     async getAllByCategory( req:Request, res: Response ) {
@@ -29,6 +29,6 @@ export class Products {
     }
 
     async deleteProduct( req:Request, res: Response ){
-        
+
     }
 }

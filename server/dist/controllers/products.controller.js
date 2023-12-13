@@ -15,24 +15,32 @@ class Products {
     constructor() {
         this.service = new products_service_1.ProductService();
     }
-    getAll(res) {
+    getAllProducts(res) {
         return __awaiter(this, void 0, void 0, function* () {
             this.service.findAll(res);
         });
     }
-    post(req, res) {
+    createProduct(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             this.service.create(req, res);
         });
     }
-    getOne() {
-        return __awaiter(this, void 0, void 0, function* () { });
+    getOneProductById(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.service.findById(req, res);
+        });
     }
-    put() {
-        return __awaiter(this, void 0, void 0, function* () { });
+    getAllByCategory(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+        });
     }
-    delete() {
-        return __awaiter(this, void 0, void 0, function* () { });
+    updateProduct(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+        });
+    }
+    deleteProduct(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+        });
     }
 }
 exports.Products = Products;

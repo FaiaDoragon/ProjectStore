@@ -12,7 +12,7 @@ exports.db = new typeorm_1.DataSource({
     username: "root",
     password: "ProjectStore",
     database: "ProjectStore",
-    synchronize: true,
     entities: [user_entity_1.User, product_entity_1.Product],
+    synchronize: true
 });
 //# sourceMappingURL=dbconnection.js.map

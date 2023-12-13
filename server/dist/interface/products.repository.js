@@ -10,10 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MysqlRepository = void 0;
-// import { Repository } from "./repository";
 const dbconnection_1 = require("../database/dbconnection");
 const product_entity_1 = require("../models/product.entity");
-const uuid_1 = require("uuid");
 class MysqlRepository {
     constructor() {
         this.db = dbconnection_1.db;
@@ -45,10 +43,8 @@ class MysqlRepository {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { name, category, stock, price, currency, description, image } = req.body;
-            const id = (0, uuid_1.v4)();
             try {
                 const products = product_entity_1.Product.create({
-                    id,
                     name,
                     category,
                     stock,
@@ -65,9 +61,57 @@ class MysqlRepository {
             }
             catch (error) {
                 res.status(500).json({
-                    msg: "Comuniquese con el Administrador",
+                    msg: "Error al crear el producto",
                     error: error.message,
                 });
+            }
+        });
+    }
+    getOne(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const id = req.params.id;
+            try {
+                const product = yield product_entity_1.Product.findOneBy({
+                    id
+                });
+                if (!product) {
+                    res.status(404).json({ msg: `No se encontro producto con el id: ${id}` });
+                    return;
+                }
+                res.status(200).json({
+                    msg: "producto encontrado",
+                    product
+                });
+            }
+            catch (error) {
+                res.status(500).json({
+                    msg: "Error al intengar obtener producto por id",
+                    error: error.message,
+                });
+            }
+        });
+    }
+    getAllByCategory(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+            }
+            catch (error) {
+            }
+        });
+    }
+    update(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+            }
+            catch (error) {
+            }
+        });
+    }
+    delete(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+            }
+            catch (error) {
             }
         });
     }

@@ -39,6 +39,50 @@ class ProductService {
             }
         });
     }
+    findById(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield this.repository.getOne(req, res);
+                return response;
+            }
+            catch (error) {
+                throw new Error(`${error}`);
+            }
+        });
+    }
+    findByCategory(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield this.repository.getAllByCategory(req, res);
+                return response;
+            }
+            catch (error) {
+                throw new Error(`${error}`);
+            }
+        });
+    }
+    update(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield this.repository.update(req, res);
+                return response;
+            }
+            catch (error) {
+                throw new Error(`${error}`);
+            }
+        });
+    }
+    delete(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield this.repository.delete(req, res);
+                return response;
+            }
+            catch (error) {
+                throw new Error(`${error}`);
+            }
+        });
+    }
 }
 exports.ProductService = ProductService;
 //# sourceMappingURL=products.service.js.map

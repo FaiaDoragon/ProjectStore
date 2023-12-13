@@ -5,7 +5,7 @@ import { Products } from "../controllers/products.controller";
 const router = Router();
 
 router.get('/', 
-(res: Response) => new Products().getAllProducts(res) );
+(req, res: Response) => new Products().getAllProducts(res) );
 
 router.get('/:id', 
 (req : Request, res: Response) => new Products().getOneProductById(req, res));
