@@ -21,7 +21,7 @@ let Product = class Product extends typeorm_1.BaseEntity {
 };
 exports.Product = Product;
 __decorate([
-    (0, typeorm_1.PrimaryColumn)(),
+    (0, typeorm_1.PrimaryColumn)({ unique: true }),
     __metadata("design:type", String)
 ], Product.prototype, "id", void 0);
 __decorate([
