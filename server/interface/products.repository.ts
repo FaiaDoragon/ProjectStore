@@ -2,7 +2,6 @@ import { DataSource } from "typeorm";
 import { db } from "../database/dbconnection";
 import { Product } from '../models/product.entity';
 import { Response, Request } from 'express';
-import { v4 as uuidv4 } from 'uuid';
 import { Repository } from "./repository";
 
 export class MysqlRepository implements Repository<void> {
@@ -75,7 +74,7 @@ export class MysqlRepository implements Repository<void> {
 
   async getOne(req: Request, res: Response): Promise<void> {
 
-    const id = req.params.id
+    const { id } = req.params
 
     try {
 
@@ -102,15 +101,46 @@ export class MysqlRepository implements Repository<void> {
   }
 
   async getAllByCategory(req: Request, res: Response): Promise<void> {
+
+    const { category } = req.params
+
     try {
 
-    } catch (error) {
+      const products = await Product.findBy({
+        category
+      });
 
+      if (!products) {
+        res.status(404).json({ msg: `No se encontraron productos en la categoria: ${category}` })
+        return;
+      }
+
+      res.status(200).json({
+        msg: `productos encontrados con la categoria: ${category}`,
+        products
+      })
+
+    } catch (error: any) {
+      res.status(500).json({
+        msg: "Error al intengar obtener producto por id",
+        error: error.message,
+      });
     }
   }
 
   async update(req: Request, res: Response): Promise<void> {
+
+    const { id } = req.params
+    const { body } = req;
+
+    const productDB = db.getRepository(Product)
+
     try {
+
+      const product = await productDB.findOneBy({
+        id
+    })
+
 
     } catch (error) {
 
@@ -118,10 +148,47 @@ export class MysqlRepository implements Repository<void> {
   }
 
   async delete(req: Request, res: Response): Promise<void> {
+
+    const { id } = req.body
+
+    const productDB = db.getRepository(Product)
+
     try {
 
-    } catch (error) {
+      const product = await productDB.findOneBy({
+        id
+      });
 
+      if (!product) {
+        res.status(404).json({ msg: `No se encontro producto con el id: ${id}` })
+        return;
+      }
+
+      if (!product.status) {
+        productDB.merge(product, { status: true })
+        await productDB.save(product);
+
+        res.status(200).json({
+          msg: "Estado cambiado a true",
+          product
+        })
+        return;
+      }
+
+      productDB.merge(product, { status: false })
+
+      await productDB.save(product);
+
+      res.status(200).json({
+        msg: "Estado cambiado a false",
+        product
+      })
+
+    } catch (error: any) {
+      res.status(500).json({
+        msg: "Error al intengar obtener producto por id",
+        error: error.message,
+      });
     }
   }
 } 

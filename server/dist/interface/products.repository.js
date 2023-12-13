@@ -69,7 +69,7 @@ class MysqlRepository {
     }
     getOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const id = req.params.id;
+            const { id } = req.params;
             try {
                 const product = yield product_entity_1.Product.findOneBy({
                     id
@@ -93,9 +93,25 @@ class MysqlRepository {
     }
     getAllByCategory(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            const { category } = req.params;
             try {
+                const products = yield product_entity_1.Product.findBy({
+                    category
+                });
+                if (!products) {
+                    res.status(404).json({ msg: `No se encontraron productos en la categoria: ${category}` });
+                    return;
+                }
+                res.status(200).json({
+                    msg: `productos encontrados con la categoria: ${category}`,
+                    products
+                });
             }
             catch (error) {
+                res.status(500).json({
+                    msg: "Error al intengar obtener producto por id",
+                    error: error.message,
+                });
             }
         });
     }
@@ -109,9 +125,37 @@ class MysqlRepository {
     }
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.body;
+            const productoDB = dbconnection_1.db.getRepository(product_entity_1.Product);
             try {
+                const product = yield product_entity_1.Product.findOneBy({
+                    id
+                });
+                if (!product) {
+                    res.status(404).json({ msg: `No se encontro producto con el id: ${id}` });
+                    return;
+                }
+                if (!product.status) {
+                    productoDB.merge(product, { status: true });
+                    yield productoDB.save(product);
+                    res.status(200).json({
+                        msg: "Estado cambiado a true",
+                        product
+                    });
+                    return;
+                }
+                productoDB.merge(product, { status: false });
+                yield productoDB.save(product);
+                res.status(200).json({
+                    msg: "Estado cambiado a false",
+                    product
+                });
             }
             catch (error) {
+                res.status(500).json({
+                    msg: "Error al intengar obtener producto por id",
+                    error: error.message,
+                });
             }
         });
     }

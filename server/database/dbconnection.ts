@@ -11,5 +11,5 @@ export const db = new DataSource({
     password: "ProjectStore",
     database: "ProjectStore",
     entities: [User, Product],
-    synchronize: true
+    synchronize: false
 })

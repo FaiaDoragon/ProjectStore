@@ -32,14 +32,17 @@ class Products {
     }
     getAllByCategory(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            this.service.findByCategory(req, res);
         });
     }
     updateProduct(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            this.service.update(req, res);
         });
     }
     deleteProduct(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            this.service.delete(req, res);
         });
     }
 }

@@ -1,4 +1,4 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { User } from "./user.entity";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -7,31 +7,31 @@ import { v4 as uuidv4 } from 'uuid';
 export class Product extends BaseEntity {
 
     @PrimaryColumn()
-    id: string = uuidv4()
+    id: string = uuidv4();
 
     @Column()
-    name!: string 
+    name?: string 
 
     @Column()
-    category!: string 
+    category?: string 
 
     @Column({type: "float"})
-    price!: number
+    price?: number
 
     @Column()
-    currency!: string 
+    currency?: string 
 
     @Column()
-    stock!: number
+    stock?: number
     
     @Column({ type: "boolean", default: true})
-    status!: boolean
+    status?: boolean
 
     @Column()
-    description!: string 
+    description?: string 
 
     @Column()
-    image!: string
+    image?: string
     
     @CreateDateColumn()
     createdAt: Date = new Date()

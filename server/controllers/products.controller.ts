@@ -21,14 +21,14 @@ export class Products {
     }
 
     async getAllByCategory( req:Request, res: Response ) {
-
+        this.service.findByCategory(req, res)
     }
 
     async updateProduct( req:Request, res: Response ){
-
+        this.service.update(req, res)
     }
 
     async deleteProduct( req:Request, res: Response ){
-
+        this.service.delete(req, res)
     }
 }
