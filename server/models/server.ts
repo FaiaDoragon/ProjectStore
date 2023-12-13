@@ -3,7 +3,7 @@ import cors from "cors";
 import env from 'env-var'
 import 'dotenv/config'
 import { db } from "../database/dbconnection";
-import products from "../routes/produts.route";
+import products from "../routes/products.routes";
 
 export class Server {
     private app : Application;
