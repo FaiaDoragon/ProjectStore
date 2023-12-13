@@ -27,4 +27,40 @@ export class ProductService {
       throw new Error(`${error}`);
     }
   }
+
+  async findById(req : Request, res : Response) {
+    try {
+      const response = await this.repository.create(req, res);
+      return response;
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
+  }
+
+  async findByCategory(req : Request, res : Response) {
+    try {
+      const response = await this.repository.create(req, res);
+      return response;
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
+  }
+
+  async update(req : Request, res : Response) {
+    try {
+      const response = await this.repository.create(req, res);
+      return response;
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
+  }
+
+  async delete(req : Request, res : Response) {
+    try {
+      const response = await this.repository.create(req, res);
+      return response;
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
+  }
 }

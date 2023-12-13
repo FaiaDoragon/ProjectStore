@@ -16,11 +16,19 @@ export class Products {
         this.service.create(req, res)
     }
 
-    async getOneProductById( req:Request, res: Response ) {}
+    async getOneProductById( req:Request, res: Response ) {
 
-    async getAllByCategory( req:Request, res: Response ) {}
+    }
 
-    async updateProduct( req:Request, res: Response ){}
+    async getAllByCategory( req:Request, res: Response ) {
 
-    async deleteProduct( req:Request, res: Response ){}
+    }
+
+    async updateProduct( req:Request, res: Response ){
+
+    }
+
+    async deleteProduct( req:Request, res: Response ){
+        
+    }
 }
