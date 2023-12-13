@@ -1,17 +1,17 @@
 import { DataSource, getRepository } from "typeorm";
-// import { Repository } from "./repository";
 import { db } from "../database/dbconnection";
 import { Product } from "../models/product.entity";
 import { Response, Request } from 'express';
 import { v4 as uuidv4 } from 'uuid';
+import { Repository } from "./repository";
 
-export class MysqlRepository {
+export class MysqlRepository implements Repository<void> {
   private db: DataSource;
   constructor() {
     this.db = db;
   }
 
-  async getAll(res: Response): Promise<void>{
+  async getAll(res: Response): Promise<void> {
 
     const products: Product[] = await Product.find()
 
@@ -35,7 +35,7 @@ export class MysqlRepository {
     }
   }
 
-  async create(req: Request, res: Response) {
+  async create(req: Request, res: Response): Promise<void> {
 
     const {
       name,
@@ -66,44 +66,22 @@ export class MysqlRepository {
       res.status(201).json({
         msg: 'Producto creado exitosamente',
         products
-    });
-    } catch (error : any) {
+      });
+    } catch (error: any) {
       res.status(500).json({
         msg: "Comuniquese con el Administrador",
         error: error.message,
-    });
+      });
     }
   }
-  // getOne(id: number): Promise<T> {
-  //   return new Promise<T>((resolve, reject) => {
-  //     try {
-  //       const item = this.data.find((item, index) => index === id);
-  //       if (item) {
-  //         resolve(item);
-  //       } else {
-  //         throw "No se encontro data";
-  //       }
-  //     } catch (error) {
-  //       throw new Error("error");
-  //     }
-  //   });
-  // }
 
-  // async update(dto: T, id?: number): Promise<T> {
-  //   if (id !== undefined && id < this.data.length) {
-  //     this.data[id] = dto;
-  //     return dto;
-  //   } else {
-  //     throw new Error(`Invalid id ${id} for update`);
-  //   }
-  // }
+  async getOne(req: Request, res: Response): Promise<void> {
 
-  // async deleted(id: number): Promise<T> {
-  //   if (id < this.data.length) {
-  //     const deletedItem = this.data.splice(id, 1)[0];
-  //     return deletedItem;
-  //   } else {
-  //     throw new Error(`Invalid id ${id} for deletion`);
-  //   }
-  // }
-}
+  }
+  async update(req: Request, res: Response): Promise<void> {
+
+  }
+  async delete(req: Request, res: Response): Promise<void> {
+
+  }
+} 
