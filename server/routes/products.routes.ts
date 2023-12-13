@@ -5,21 +5,21 @@ import { Products } from "../controllers/products.controller";
 const router = Router();
 
 router.get('/', 
-(res: Response) => new Products().getAll(res) );
+(res: Response) => new Products().getAllProducts(res) );
 
 router.get('/:id', 
-(req : Request, res: Response) => new Products().getOneById(req, res));
+(req : Request, res: Response) => new Products().getOneProductById(req, res));
 
 router.get('/category/:category', 
 (req : Request, res: Response) => new Products().getAllByCategory(req, res));
 
 router.post('/', 
-(req : Request, res: Response) => new Products().post(req, res) );
+(req : Request, res: Response) => new Products().createProduct(req, res) );
 
 router.put('/:id', 
-(req : Request, res: Response) => new Products().put(req, res));
+(req : Request, res: Response) => new Products().updateProduct(req, res));
 
 router.delete('/:id', 
-(req : Request, res: Response) => new Products().delete(req, res));
+(req : Request, res: Response) => new Products().deleteProduct(req, res));
 
 export default router
