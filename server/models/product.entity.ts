@@ -5,7 +5,7 @@ import { User } from "./user.entity";
 @Entity()
 export class Product extends BaseEntity {
 
-    @PrimaryColumn()
+    @PrimaryColumn({ unique : true})
     id!: string 
 
     @Column()
