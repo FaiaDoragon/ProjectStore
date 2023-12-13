@@ -78,9 +78,15 @@ export class MysqlRepository implements Repository<void> {
   async getOne(req: Request, res: Response): Promise<void> {
 
   }
+
+  async getAllByCategory (req: Request, res: Response): Promise<void> {
+
+  }
+
   async update(req: Request, res: Response): Promise<void> {
 
   }
+
   async delete(req: Request, res: Response): Promise<void> {
 
   }
