@@ -8,7 +8,7 @@ export class Products {
         this.service = new ProductService();
     }
     
-    async getAllProducts( res : Response ) {
+    async getProducts( res : Response ) {
         this.service.findAll(res)
     }
 
@@ -16,15 +16,15 @@ export class Products {
         this.service.create(req, res)
     }
 
-    async getOneProductById( req:Request, res: Response ) {
+    async getProductById( req:Request, res: Response ) {
         this.service.findById(req, res)
     }
 
-    async getAllByCategory( req:Request, res: Response ) {
+    async getProductsByCategory( req:Request, res: Response ) {
         this.service.findByCategory(req, res)
     }
 
-    async updateProduct( req:Request, res: Response ){
+    async productUpdate( req:Request, res: Response ){
         this.service.update(req, res)
     }
 

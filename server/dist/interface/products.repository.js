@@ -117,18 +117,40 @@ class MysqlRepository {
     }
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const { body } = req;
+            const productDB = dbconnection_1.db.getRepository(product_entity_1.Product);
             try {
+                const product = yield productDB.findOneBy({
+                    id
+                });
+                if (!product) {
+                    res.status(404).json({
+                        msg: `No se encontro producto con el id: ${id}`
+                    });
+                    return;
+                }
+                productDB.merge(product, body);
+                yield productDB.save(product);
+                res.status(200).json({
+                    msg: "Producto Actualizado correctamente",
+                    product,
+                });
             }
             catch (error) {
+                res.status(500).json({
+                    msg: "Error al intengar obtener producto por id",
+                    error: error.message,
+                });
             }
         });
     }
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.body;
-            const productoDB = dbconnection_1.db.getRepository(product_entity_1.Product);
+            const productDB = dbconnection_1.db.getRepository(product_entity_1.Product);
             try {
-                const product = yield product_entity_1.Product.findOneBy({
+                const product = yield productDB.findOneBy({
                     id
                 });
                 if (!product) {
@@ -136,16 +158,16 @@ class MysqlRepository {
                     return;
                 }
                 if (!product.status) {
-                    productoDB.merge(product, { status: true });
-                    yield productoDB.save(product);
+                    productDB.merge(product, { status: true });
+                    yield productDB.save(product);
                     res.status(200).json({
                         msg: "Estado cambiado a true",
                         product
                     });
                     return;
                 }
-                productoDB.merge(product, { status: false });
-                yield productoDB.save(product);
+                productDB.merge(product, { status: false });
+                yield productDB.save(product);
                 res.status(200).json({
                     msg: "Estado cambiado a false",
                     product

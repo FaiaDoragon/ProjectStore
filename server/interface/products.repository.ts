@@ -141,9 +141,27 @@ export class MysqlRepository implements Repository<void> {
         id
     })
 
+    if (!product) {
+      res.status(404).json({
+        msg: `No se encontro producto con el id: ${id}`
+      })
+      return;
+    }
 
-    } catch (error) {
+    productDB.merge(product, body)
 
+        await productDB.save(product);
+
+        res.status(200).json({
+            msg: "Producto Actualizado correctamente",
+            product,
+        })
+
+    } catch (error : any) {
+      res.status(500).json({
+        msg: "Error al intengar obtener producto por id",
+        error: error.message,
+      });
     }
   }
 

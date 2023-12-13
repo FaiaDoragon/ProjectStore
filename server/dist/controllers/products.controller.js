@@ -15,7 +15,7 @@ class Products {
     constructor() {
         this.service = new products_service_1.ProductService();
     }
-    getAllProducts(res) {
+    getProducts(res) {
         return __awaiter(this, void 0, void 0, function* () {
             this.service.findAll(res);
         });
@@ -25,17 +25,17 @@ class Products {
             this.service.create(req, res);
         });
     }
-    getOneProductById(req, res) {
+    getProductById(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             this.service.findById(req, res);
         });
     }
-    getAllByCategory(req, res) {
+    getProductsByCategory(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             this.service.findByCategory(req, res);
         });
     }
-    updateProduct(req, res) {
+    productUpdate(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             this.service.update(req, res);
         });
