@@ -1,7 +1,7 @@
 import { DataSource } from "typeorm"
 import "reflect-metadata"
-import { Products, User } from "../models/entities"
-import { envs } from "../helpers/envs"
+import { envs } from "../helpers"
+import { Product, User } from "../models"
 
 export const db = new DataSource({
     type: "mysql",
@@ -11,5 +11,5 @@ export const db = new DataSource({
     password: envs.DB_PASS,
     database: envs.DB_NAME,
     synchronize: true,
-    entities: [User, Products],
+    entities: [User, Product],
 })

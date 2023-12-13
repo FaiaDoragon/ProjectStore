@@ -2,7 +2,8 @@ import express, { Application } from "express";
 import cors from "cors";
 import 'dotenv/config'
 import { db } from "../database/dbconnection";
-import { envs } from "../helpers/envs";
+import { envs } from "../helpers";
+import authRoutes from '../routes/auth.routes'
 
 export class Server {
     private app : Application;
@@ -33,7 +34,7 @@ export class Server {
     }
 
     routes() {
-
+       this.app.use('/api/auth', authRoutes);
     }
 
     listen(){

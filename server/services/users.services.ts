@@ -1,10 +1,13 @@
+import { User } from "../models/user.entity"
 
 
 
 export class UserService {
-   constructor(){}
+   constructor(
+      private readonly userEntity: User
+   ){}
 
    public async getAll() {
-      const users = await 
+      //const users = this.userEntity;
    }
 }
