@@ -14,7 +14,7 @@ export class AuthController {
 	 const {user, token} = await this.authService.login({correo, password});
 
 	 res.cookie('token', token);
-	 res.json(user);
+	 res.json({user});
       }catch(error: any) {
 	 //TODO: mejorar el manejo de este error
 	 if(error.type === 'bad request') return res.status(404).json({error: error.error});

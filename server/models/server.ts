@@ -12,7 +12,7 @@ export class Server {
     private port : number;
     private path = {
         auth: "/api/auth",
-        user: "/api/user",
+        user: "/api/users",
         products: "/api/products"
     }
     constructor() {

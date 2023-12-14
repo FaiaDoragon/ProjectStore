@@ -26,21 +26,19 @@ router.get('/deleted',[
    validRol.isUserAdmin, // Verifica que el usuario sea admin
 ],controller.getDeletedUsers);
 
-//TODO: middleware validar que exista el usuario
 router.put('/:id',[
    middleware.validToken,
-   check('id', 'Invalid id').not().isEmpty(),
+   check('id', 'Invalid id').isUUID(),
    validFields,
    check('id').custom(dbValidators.isUserOwner),
    check('id').custom(dbValidators.validExistUser),
    validFields,
 ],controller.userUpdate);
 
-//TODO: middleware validar que exista el usuario
 router.delete('/:id',[
    middleware.validToken,
    validRol.isUserAdmin,
-   check('id', 'Invalid id').not().isEmpty(),
+   check('id', 'Invalid id').isUUID(),
    validFields,
    check('id').custom(dbValidators.validExistUser),
    validFields,
