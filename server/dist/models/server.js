@@ -18,8 +18,14 @@ const cors_1 = __importDefault(require("cors"));
 const env_var_1 = __importDefault(require("env-var"));
 require("dotenv/config");
 const dbconnection_1 = require("../database/dbconnection");
+const products_routes_1 = __importDefault(require("../routes/products.routes"));
 class Server {
     constructor() {
+        this.path = {
+            auth: "/auth",
+            user: "/user",
+            products: "/products"
+        };
         this.app = (0, express_1.default)();
         this.port = env_var_1.default.get('PORT').required().asPortNumber();
         this.middlewares();
@@ -42,6 +48,7 @@ class Server {
         });
     }
     routes() {
+        this.app.use(this.path.products, products_routes_1.default);
     }
     listen() {
         this.app.listen(this.port, () => {

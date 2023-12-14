@@ -10,6 +10,6 @@ export const db = new DataSource({
     username: envs.DB_USER,
     password: envs.DB_PASS,
     database: envs.DB_NAME,
-    synchronize: true,
+    synchronize: false,
     entities: [User, Product],
 })

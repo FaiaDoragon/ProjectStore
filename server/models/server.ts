@@ -5,10 +5,16 @@ import { db } from "../database/dbconnection";
 import { envs } from "../helpers";
 import authRoutes from '../routes/auth.routes'
 import usersRoutes from '../routes/users.routes'
+import products from "../routes/products.routes";
 
 export class Server {
     private app : Application;
     private port : number;
+    private path = {
+        auth: "/api/auth",
+        user: "/api/user",
+        products: "/api/products"
+    }
     constructor() {
         this.app = express()
         this.port = envs.PORT
@@ -35,8 +41,9 @@ export class Server {
     }
 
     routes() {
-       this.app.use('/api/auth', authRoutes);
-       this.app.use('/api/users', usersRoutes);
+        this.app.use(this.path.auth, authRoutes)
+        this.app.use(this.path.user, usersRoutes)
+        this.app.use(this.path.products, products)
     }
 
     listen(){
