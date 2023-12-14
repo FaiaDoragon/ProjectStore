@@ -139,7 +139,7 @@ export class MysqlRepository implements Repository<void> {
 
       const product = await productDB.findOneBy({
         id
-    })
+      })
 
     if (!product) {
       res.status(404).json({

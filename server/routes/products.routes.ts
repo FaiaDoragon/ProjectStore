@@ -4,8 +4,8 @@ import { Products } from "../controllers/products.controller";
 
 const router = Router();
 
-router.get('/', 
-(req, res: Response) => new Products().getProducts(res) );
+router.get('/',  
+(req, res: Response) => new Products().getProducts(res));
 
 router.get('/:id', 
 (req : Request, res: Response) => new Products().getProductById(req, res));
