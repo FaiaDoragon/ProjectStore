@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { check } from "express-validator";
-import { UserService } from "../services/users.services";
+import { UserService } from "../services/users.service";
 import { UserController } from "../controllers/users.controllers";
 import { JwtAdapter, envs, DbValidators } from "../helpers";
 import { AuthMiddleware, ValidRol, validFields } from "../middleware";

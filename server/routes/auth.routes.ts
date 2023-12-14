@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { check } from "express-validator";
 import { AuthController } from "../controllers/auth.controllers";
-import { AuthService } from "../services/auth.services";
+import { AuthService } from "../services/auth.service";
 import { DbValidators, JwtAdapter, envs } from "../helpers";
 import { validFields } from "../middleware";
 import { db } from "../database/dbconnection";
