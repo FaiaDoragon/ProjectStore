@@ -11,12 +11,13 @@ export class AuthController {
       const {correo, password} = req.body;
 
       try{
-	 const resp = await this.authService.login({correo, password});
+	 const {user, token} = await this.authService.login({correo, password});
 
-	 res.json(resp);
+	 res.cookie('token', token);
+	 res.json(user);
       }catch(error: any) {
 	 //TODO: mejorar el manejo de este error
-	 if(error.type === 'unauthorize') return res.status(404).json({error: error.error});
+	 if(error.type === 'bad request') return res.status(404).json({error: error.error});
 
 	 res.status(500).json({error});
       }
@@ -25,12 +26,11 @@ export class AuthController {
    register = async(req: Request, res: Response) => {
       const { name, correo, password, rol, lastname } = req.body;
       
-      try{
-	 const resp = await this.authService.register({name, correo, password, rol, lastname});
-
-	 res.status(201).json(resp);
-      }catch(error){
-	 res.status(500).json({error})
-      }
+      this.authService.register({name, correo, password, rol, lastname})
+	 .then( ({user, token}) => {
+	    res.cookie('token', token)
+	    res.status(201).json({user})
+	 })
+	 .catch( error => res.status(500).json({error}) )
    }
 }

@@ -4,6 +4,7 @@ import 'dotenv/config'
 import { db } from "../database/dbconnection";
 import { envs } from "../helpers";
 import authRoutes from '../routes/auth.routes'
+import usersRoutes from '../routes/users.routes'
 
 export class Server {
     private app : Application;
@@ -35,6 +36,7 @@ export class Server {
 
     routes() {
        this.app.use('/api/auth', authRoutes);
+       this.app.use('/api/users', usersRoutes);
     }
 
     listen(){

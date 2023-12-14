@@ -1,12 +1,13 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, OneToMany, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { Product } from "./product.entity";
+import { UuidAdapter } from "../helpers";
 
 //Entity to use on dbconnection for Products
 @Entity()
 export class User extends BaseEntity {
 
     @PrimaryColumn()
-    id!: string 
+    id: string = UuidAdapter.v4()
 
     @Column({ unique : true })
     name!: string 
