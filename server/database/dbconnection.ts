@@ -1,15 +1,15 @@
 import { DataSource } from "typeorm"
 import "reflect-metadata"
-import { User } from "../models/user.entity"
-import { Product } from "../models/product.entity"
+import { envs } from "../helpers"
+import { Product, User } from "../models"
 
 export const db = new DataSource({
     type: "mysql",
-    host: "localhost",
-    port: 3306,
-    username: "root",
-    password: "ProjectStore",
-    database: "ProjectStore",
+    host: envs.DB_HOST,
+    port: envs.DB_PORT,
+    username: envs.DB_USER,
+    password: envs.DB_PASS,
+    database: envs.DB_NAME,
+    synchronize: false,
     entities: [User, Product],
-    synchronize: false
 })

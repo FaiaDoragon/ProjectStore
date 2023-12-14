@@ -1,21 +1,23 @@
 import express, { Application } from "express";
 import cors from "cors";
-import env from 'env-var'
 import 'dotenv/config'
 import { db } from "../database/dbconnection";
+import { envs } from "../helpers";
+import authRoutes from '../routes/auth.routes'
+import usersRoutes from '../routes/users.routes'
 import products from "../routes/products.routes";
 
 export class Server {
     private app : Application;
     private port : number;
     private path = {
-        auth: "/auth",
-        user: "/user",
-        products: "/products"
+        auth: "/api/auth",
+        user: "/api/user",
+        products: "/api/products"
     }
     constructor() {
         this.app = express()
-        this.port = env.get('PORT').required().asPortNumber()
+        this.port = envs.PORT
 
         this.middlewares()
 
@@ -39,6 +41,8 @@ export class Server {
     }
 
     routes() {
+        this.app.use(this.path.auth, authRoutes)
+        this.app.use(this.path.user, usersRoutes)
         this.app.use(this.path.products, products)
     }
 

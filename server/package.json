@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "npx ts-node-dev --respawn --clear app.ts"
   },
   "keywords": [],
   "author": "",
@@ -23,8 +23,10 @@
     "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.5",
     "@types/uuid": "^9.0.7"
   }
 }
