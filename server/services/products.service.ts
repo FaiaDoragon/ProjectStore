@@ -1,5 +1,4 @@
-// import { Product } from "../models/product.entity";
-// import { Repository } from '../interface/repository';
+
 import { MysqlRepository } from "../interface/products.repository";
 import { Request, Response } from 'express';
 
