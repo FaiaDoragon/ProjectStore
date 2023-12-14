@@ -12,9 +12,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Product = void 0;
 const typeorm_1 = require("typeorm");
 const user_entity_1 = require("./user.entity");
+const uuid_1 = require("uuid");
 let Product = class Product extends typeorm_1.BaseEntity {
     constructor() {
         super(...arguments);
+        this.id = (0, uuid_1.v4)();
         this.createdAt = new Date();
         this.updatedAt = new Date();
     }
