@@ -4,7 +4,6 @@ import { AuthController } from "../controllers/auth.controllers";
 import { AuthService } from "../services/auth.service";
 import { DbValidators, JwtAdapter, envs } from "../helpers";
 import { validFields } from "../middleware";
-import { db } from "../database/dbconnection";
 
 
 const router = Router();
@@ -16,24 +15,24 @@ const dbValidators = new DbValidators()
 // Se coloca varias veces el middleware "validFields" para que limpie
 // el error anterior y lanza en nuevo
 router.post('/login',[
-   check('correo', 'Invalid email').isEmail(),
+   check('correo', 'Inavalid email').isEmail(),
    validFields,
-   check('password', 'Invalid password').not().isEmpty(),
+   check('password', 'Missing password').not().isEmpty(),
    validFields,
 ],controller.login)
 
 router.post('/register',[
-   check('name', 'Invalid name').not().isEmpty(),
+   check('name', 'Missing name').not().isEmpty(),
    validFields,
-   check('correo', 'Invalid email').isEmail(),
+   check('correo', 'Missing email').isEmail(),
    validFields,
    check('correo').custom(dbValidators.validExistEmail),
    validFields,
-   check('password', 'Invalid password').not().isEmpty(),
+   check('password', 'Missing password').not().isEmpty(),
    validFields,
-   check('lastname', 'Invalid lastname').not().isEmpty(),
+   check('lastname', 'Missing lastname').not().isEmpty(),
    validFields,
-   check('rol', 'Invalid rol').isBoolean(),
+   check('rol', 'Missing rol').isBoolean(),
    validFields
 ],controller.register)
 
