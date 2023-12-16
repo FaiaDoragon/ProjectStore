@@ -1,6 +1,5 @@
 import express, { Application } from "express";
 import cors from "cors";
-import 'dotenv/config'
 import { db } from "../database/dbconnection";
 import { envs } from "../helpers";
 import authRoutes from '../routes/auth.routes'

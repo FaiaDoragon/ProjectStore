@@ -296,3 +296,82 @@ O
     "msg": 'User can't complete this accition, because is not admin'
 }
 ```
+
+## *Products Endpoints*
+Los endpoints de la ruta "products" son 6:
+
+### */api/products*
+Es la ruta principal, a travez de ella podemos: 
+- obtener todos los productos
+- crear un producto
+
+### GET
+Devuelve todos los productos que hayan sido creados, 
+
+cURL:
+```bash
+curl -H "Authorization: Bearer $token" -X GET /users/
+```
+success:
+```bash
+{
+    "msg": "Lista completa de Productos",
+    "products": [
+        {
+            "id": "f670dfd5-ac9e-421a-84c4-ece8301fdf96",
+            "createdAt": "2023-12-16T14:18:46.872Z",
+            "updatedAt": "2023-12-16T19:21:17.000Z",
+            "name": "lamborgini 350GT e",
+            "category": "vehiculo",
+            "price": 500000,
+            "currency": "dolar",
+            "stock": 10,
+            "status": true,
+            "description": "lamborgyni zentorno",
+            "image": "zentorno.jpg",
+            "createdBy": {
+                "id": "65adaa17-a9cf-4513-95b9-1e63ec602066",
+                "createdAt": "2023-12-16T13:58:01.749Z",
+                "updatedAt": "2023-12-16T13:58:01.749Z",
+                "name": "John",
+                "lastname": "Doe",
+                "correo": "john@gmail.com",
+                "password": "$2b$10$cfpBVGPhxfW/1yOb.hgClecmPRwFoHTMi5OwQxGiVU.SCdjig7EXa",
+                "status": true,
+                "Rol": true
+            },
+            "updatedBy": {
+                "id": "65adaa17-a9cf-4513-95b9-1e63ec602066",
+                "createdAt": "2023-12-16T13:58:01.749Z",
+                "updatedAt": "2023-12-16T13:58:01.749Z",
+                "name": "John",
+                "lastname": "Doe",
+                "correo": "john@gmail.com",
+                "password": "$2b$10$cfpBVGPhxfW/1yOb.hgClecmPRwFoHTMi5OwQxGiVU.SCdjig7EXa",
+                "status": true,
+                "Rol": true
+            }
+        }
+    ]
+}
+```
+Error: 401
+```
+{error: 'Missing token'}
+{error: 'Invalid Beare token'}
+{error: 'Invalid token'}
+
+{msg: "User can't complete this accition, because is not admin "}
+```
+Error: 404
+```
+{msg: `No se encontraron productos en la base de datos`}
+```
+Error: 500
+```
+{
+    msg: "Error al obtener los datos solicitados",
+    error: error.message,
+}
+```
+### POST

@@ -15,19 +15,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Server = void 0;
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
-const env_var_1 = __importDefault(require("env-var"));
-require("dotenv/config");
 const dbconnection_1 = require("../database/dbconnection");
+const helpers_1 = require("../helpers");
+const auth_routes_1 = __importDefault(require("../routes/auth.routes"));
+const users_routes_1 = __importDefault(require("../routes/users.routes"));
 const products_routes_1 = __importDefault(require("../routes/products.routes"));
 class Server {
     constructor() {
         this.path = {
-            auth: "/auth",
-            user: "/user",
-            products: "/products"
+            auth: "/api/auth",
+            user: "/api/users",
+            products: "/api/products"
         };
         this.app = (0, express_1.default)();
-        this.port = env_var_1.default.get('PORT').required().asPortNumber();
+        this.port = helpers_1.envs.PORT;
         this.middlewares();
         this.dataBase();
         this.routes();
@@ -48,6 +49,8 @@ class Server {
         });
     }
     routes() {
+        this.app.use(this.path.auth, auth_routes_1.default);
+        this.app.use(this.path.user, users_routes_1.default);
         this.app.use(this.path.products, products_routes_1.default);
     }
     listen() {

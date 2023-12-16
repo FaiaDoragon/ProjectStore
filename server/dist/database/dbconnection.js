@@ -3,16 +3,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.db = void 0;
 const typeorm_1 = require("typeorm");
 require("reflect-metadata");
-const user_entity_1 = require("../models/user.entity");
-const product_entity_1 = require("../models/product.entity");
+const helpers_1 = require("../helpers");
+const models_1 = require("../models");
 exports.db = new typeorm_1.DataSource({
     type: "mysql",
-    host: "localhost",
-    port: 3306,
-    username: "root",
-    password: "ProjectStore",
-    database: "ProjectStore",
-    entities: [user_entity_1.User, product_entity_1.Product],
-    synchronize: false
+    host: helpers_1.envs.DB_HOST,
+    port: helpers_1.envs.DB_PORT,
+    username: helpers_1.envs.DB_USER,
+    password: helpers_1.envs.DB_PASS,
+    database: helpers_1.envs.DB_NAME,
+    synchronize: false,
+    entities: [models_1.User, models_1.Product],
 });
 //# sourceMappingURL=dbconnection.js.map

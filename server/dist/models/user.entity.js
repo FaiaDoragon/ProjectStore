@@ -12,10 +12,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const typeorm_1 = require("typeorm");
 const product_entity_1 = require("./product.entity");
+const helpers_1 = require("../helpers");
 //Entity to use on dbconnection for Products
 let User = class User extends typeorm_1.BaseEntity {
     constructor() {
         super(...arguments);
+        this.id = helpers_1.UuidAdapter.v4();
         this.createdAt = new Date();
         this.updatedAt = new Date();
     }

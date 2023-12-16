@@ -18,7 +18,9 @@ class MysqlRepository {
     }
     getAll(res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const products = yield product_entity_1.Product.find();
+            const products = yield product_entity_1.Product.find({
+                relations: ['createdBy', 'updatedBy']
+            });
             try {
                 if (products.length !== 0) {
                     res.status(200).json({
@@ -42,7 +44,8 @@ class MysqlRepository {
     }
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { name, category, stock, price, currency, description, image } = req.body;
+            const { name, category, stock, price, currency, description, image, } = req.body;
+            const idUser = req.body.user.id;
             try {
                 const products = product_entity_1.Product.create({
                     name,
@@ -51,7 +54,8 @@ class MysqlRepository {
                     price,
                     currency,
                     description,
-                    image
+                    image,
+                    createdBy: idUser
                 });
                 yield products.save();
                 res.status(201).json({
@@ -98,7 +102,7 @@ class MysqlRepository {
                 const products = yield product_entity_1.Product.findBy({
                     category
                 });
-                if (!products) {
+                if (products.length === 0) {
                     res.status(404).json({ msg: `No se encontraron productos en la categoria: ${category}` });
                     return;
                 }
@@ -119,6 +123,7 @@ class MysqlRepository {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             const { body } = req;
+            const idUser = req.body.user.id;
             const productDB = dbconnection_1.db.getRepository(product_entity_1.Product);
             try {
                 const product = yield productDB.findOneBy({
@@ -131,6 +136,7 @@ class MysqlRepository {
                     return;
                 }
                 productDB.merge(product, body);
+                productDB.merge(product, { updatedBy: idUser });
                 yield productDB.save(product);
                 res.status(200).json({
                     msg: "Producto Actualizado correctamente",
@@ -147,18 +153,24 @@ class MysqlRepository {
     }
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { id } = req.body;
+            const { id } = req.params;
+            const idUser = req.body.user.id;
             const productDB = dbconnection_1.db.getRepository(product_entity_1.Product);
             try {
                 const product = yield productDB.findOneBy({
                     id
                 });
                 if (!product) {
-                    res.status(404).json({ msg: `No se encontro producto con el id: ${id}` });
+                    res.status(404).json({
+                        msg: `No se encontro producto con el id: ${id}`
+                    });
                     return;
                 }
                 if (!product.status) {
-                    productDB.merge(product, { status: true });
+                    productDB.merge(product, {
+                        status: true,
+                        updatedBy: idUser
+                    });
                     yield productDB.save(product);
                     res.status(200).json({
                         msg: "Estado cambiado a true",

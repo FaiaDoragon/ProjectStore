@@ -12,7 +12,9 @@ export class MysqlRepository implements Repository<void> {
 
   async getAll(res: Response): Promise<void> {
 
-    const products: Product[] = await Product.find()
+    const products: Product[] = await Product.find({
+      relations: ['createdBy', 'updatedBy']
+    })
 
     try {
       if (products.length !== 0) {
@@ -43,9 +45,11 @@ export class MysqlRepository implements Repository<void> {
       price,
       currency,
       description,
-      image
+      image,
     } = req.body
 
+    const idUser = req.body.user.id
+    
     try {
 
       const products = Product.create({
@@ -55,7 +59,8 @@ export class MysqlRepository implements Repository<void> {
         price,
         currency,
         description,
-        image
+        image,
+        createdBy : idUser
       })
 
       await products.save();
@@ -110,7 +115,7 @@ export class MysqlRepository implements Repository<void> {
         category
       });
 
-      if (!products) {
+      if (products.length === 0) {
         res.status(404).json({ msg: `No se encontraron productos en la categoria: ${category}` })
         return;
       }
@@ -132,6 +137,7 @@ export class MysqlRepository implements Repository<void> {
 
     const { id } = req.params
     const { body } = req;
+    const idUser = req.body.user.id
 
     const productDB = db.getRepository(Product)
 
@@ -149,6 +155,7 @@ export class MysqlRepository implements Repository<void> {
     }
 
     productDB.merge(product, body)
+    productDB.merge(product, { updatedBy : idUser})
 
         await productDB.save(product);
 
@@ -167,7 +174,8 @@ export class MysqlRepository implements Repository<void> {
 
   async delete(req: Request, res: Response): Promise<void> {
 
-    const { id } = req.body
+    const { id } = req.params
+    const idUser = req.body.user.id
 
     const productDB = db.getRepository(Product)
 
@@ -175,15 +183,20 @@ export class MysqlRepository implements Repository<void> {
 
       const product = await productDB.findOneBy({
         id
-      });
+      })
 
-      if (!product) {
-        res.status(404).json({ msg: `No se encontro producto con el id: ${id}` })
-        return;
-      }
+    if (!product) {
+      res.status(404).json({
+        msg: `No se encontro producto con el id: ${id}`
+      })
+      return;
+    }
 
       if (!product.status) {
-        productDB.merge(product, { status: true })
+        productDB.merge(product, { 
+          status: true,
+          updatedBy: idUser 
+        })
         await productDB.save(product);
 
         res.status(200).json({

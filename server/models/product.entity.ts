@@ -1,13 +1,14 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { User } from "./user.entity";
-import { v4 as uuidv4 } from 'uuid';
+import { UuidAdapter } from "../helpers";
+
 
 
 @Entity()
 export class Product extends BaseEntity {
 
     @PrimaryColumn()
-    id: string = uuidv4();
+    id: string = UuidAdapter.v4();
 
     @Column()
     name?: string 
@@ -40,10 +41,9 @@ export class Product extends BaseEntity {
     updatedAt: Date = new Date()
 
     // campos de relacion
-
     @ManyToOne(() => User, user => user.createdProducts)
     createdBy!: User;
-
+    
     @ManyToOne(() => User, user => user.updatedProducts)
     updatedBy!: User;
 }

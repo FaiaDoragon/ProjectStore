@@ -13,8 +13,8 @@ const controller = new UserController(service);
 
 const jwtadapter = new JwtAdapter(envs.JWT_SEED);
 const dbValidators = new DbValidators();
-const validRol = new ValidRol();
-const middleware = new AuthMiddleware(jwtadapter);
+export const validRol = new ValidRol();
+export const middleware = new AuthMiddleware(jwtadapter);
 
 router.get('/',[
    middleware.validToken,

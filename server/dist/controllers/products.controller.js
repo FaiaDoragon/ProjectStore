@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Products = void 0;
-const products_service_1 = require("../service/products.service");
+const products_service_1 = require("../services/products.service");
 class Products {
     constructor() {
         this.service = new products_service_1.ProductService();

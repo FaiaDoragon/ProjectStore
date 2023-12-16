@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "npx ts-node-dev --respawn --clear app.ts"
+    "dev": "npx ts-node-dev --respawn --clear app.ts",
+    "start": "tsc && nodemon dist/app.js"
   },
   "keywords": [],
   "author": "",
