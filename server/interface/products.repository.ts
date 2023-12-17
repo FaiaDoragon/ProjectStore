@@ -84,7 +84,7 @@ export class MysqlRepository implements Repository<void> {
     try {
 
       const product = await Product.findOneBy({
-        id
+        id 
       });
 
       if (!product) {

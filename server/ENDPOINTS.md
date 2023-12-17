@@ -19,7 +19,7 @@ curl -H "Content-Type: application/json" -X POST -d '{"name": "John", "lastname"
 ```
 
 Success:
-```
+```bash
 {
     "user": {
         "id":"d4c302b9-2f02-48c3-9b4c-a6a871161867",
@@ -60,7 +60,7 @@ curl -H "Content-Type: application/json" -X POST -d '{ "correo": "john@gmail.com
 ```
 
 Success:
-```
+```bash
 {
     "user": {
         "id":"d4c302b9-2f02-48c3-9b4c-a6a871161867",
@@ -114,7 +114,7 @@ curl -H "Authorization: Bearer $token" -X GET /users/
 ```
 
 Success:
-```
+```bash
 {
     "next":"/users?limit=10&page=1",
     "prev":null,
@@ -153,7 +153,7 @@ curl -H "Authorization: Bearer $token" -X GET /users/deleted
 ```
 
 Success:
-```
+```bash
 {
     "next":"/users?limit=10&page=1",
     "prev":null,
@@ -195,7 +195,7 @@ curl -H "Authorization: Bearer $token" -H "Content-Type: application/json" -X PU
 ```
 
 Success:
-```
+```bash
 {
     "user": {
         "id":"d4c302b9-2f02-48c3-9b4c-a6a871161867",
@@ -252,7 +252,7 @@ curl -H "Authorization: Bearer $token" -X DELETE /:id
 ```
 
 Success:
-```
+```bash
 {
     "user": {
         "id":"d4c302b9-2f02-48c3-9b4c-a6a871161867",
@@ -305,12 +305,12 @@ Es la ruta principal, a travez de ella podemos:
 - obtener todos los productos
 - crear un producto
 
-### GET
+#### GET:
 Devuelve todos los productos que hayan sido creados, 
 
 cURL:
 ```bash
-curl -H "Authorization: Bearer $token" -X GET /users/
+curl -H "Authorization: Bearer $token" -X GET /api/products/
 ```
 success:
 ```bash
@@ -374,4 +374,239 @@ Error: 500
     error: error.message,
 }
 ```
-### POST
+#### POST:
+Permite crear un producto y guardarlo en la base de datos 
+
+cURL:
+```bash
+curl -H "Authorization: Bearer $token" -X POST -d 
+{
+    "name" : "lamborgyni GT350",
+    "category" : "vehiculo",
+    "stock" : 10,
+    "price" : 500000,
+    "currency" : "dolar",
+    "description" : "lamborgyni zentorno",
+    "image" : "zentorno.jpg"
+} /api/products/
+```
+succes:
+```bash
+{
+    "msg": "Producto creado exitosamente",
+    "products": {
+        "id": "a57f4c7b-83a7-4b1c-b5fb-479d85c2ae30",
+        "createdAt": "2023-12-17T01:22:20.541Z",
+        "updatedAt": "2023-12-17T01:22:20.541Z",
+        "name": "lamborgyni GT350",
+        "category": "vehiculo",
+        "price": 500000,
+        "currency": "dolar",
+        "stock": 10,
+        "description": "lamborgyni zentorno",
+        "image": "zentorno.jpg",
+        "createdBy": "65adaa17-a9cf-4513-95b9-1e63ec602066",
+        "status": true
+    }
+}
+```
+Error: 401
+```
+{error: 'Missing token'}
+{error: 'Invalid Beare token'}
+{error: 'Invalid token'}
+
+{msg: "User can't complete this accition, because is not admin "}
+```
+Error: 500
+```
+{
+    msg: "Error al obtener los datos solicitados",
+    error: error.message,
+}
+```
+
+### */api/products/:id*
+Ruta derivada de la principar para operar los productos cuyo id sea igual al enviado en los parametros
+#### GET
+cURL:
+```bash
+curl -H "Authorization: Bearer $token" -X GET /api/products/a57f4c7b-83a7-4b1c-b5fb-479d85c2ae30
+```
+sucess:
+```bash
+{
+    "msg": "producto encontrado",
+    "product": {
+        "id": "a57f4c7b-83a7-4b1c-b5fb-479d85c2ae30",
+        "createdAt": "2023-12-17T01:22:20.541Z",
+        "updatedAt": "2023-12-17T01:22:20.541Z",
+        "name": "lamborgyni GT350",
+        "category": "vehiculo",
+        "price": 500000,
+        "currency": "dolar",
+        "stock": 10,
+        "status": true,
+        "description": "lamborgyni zentorno",
+        "image": "zentorno.jpg"
+    }
+}
+```
+Error: 401
+```
+{error: 'Missing token'}
+{error: 'Invalid Beare token'}
+{error: 'Invalid token'}
+
+{msg: "User can't complete this accition, because is not admin "}
+```
+Error: 500
+```
+{
+    msg: "Error al obtener los datos solicitados",
+    error: error.message,
+}
+```
+
+#### PUT
+cURL:
+```bash
+curl -H "Authorization: Bearer $token" -X GET -d { "price": 600000 } /api/products/a57f4c7b-83a7-4b1c-b5fb-479d85c2ae30
+```
+success:
+```bash
+{
+    "msg": "Producto Actualizado correctamente",
+    "product": {
+        "id": "a57f4c7b-83a7-4b1c-b5fb-479d85c2ae30",
+        "createdAt": "2023-12-17T01:22:20.541Z",
+        "updatedAt": "2023-12-17T06:46:54.000Z",
+        "name": "lamborgyni GT350",
+        "category": "vehiculo",
+        "price": 600000,
+        "currency": "dolar",
+        "stock": 10,
+        "status": true,
+        "description": "lamborgyni zentorno",
+        "image": "zentorno.jpg",
+        "updatedBy": "65adaa17-a9cf-4513-95b9-1e63ec602066"
+    }
+}
+```
+Error: 401
+```
+{error: 'Missing token'}
+{error: 'Invalid Beare token'}
+{error: 'Invalid token'}
+
+{msg: "User can't complete this accition, because is not admin "}
+```
+Error: 500
+```
+{
+    msg: "Error al obtener los datos solicitados",
+    error: error.message,
+}
+```
+#### DELETE
+Si el producto esta en estado true lo cambia a false y si el estado esta en false lo cambia a true
+cURL:
+```bash
+curl -H "Authorization: Bearer $token" -X GET /api/products/a57f4c7b-83a7-4b1c-b5fb-479d85c2ae30
+```
+success:
+```bash
+{
+    "msg": "Estado cambiado a false",
+    "product": {
+        "id": "a57f4c7b-83a7-4b1c-b5fb-479d85c2ae30",
+        "createdAt": "2023-12-17T01:22:20.541Z",
+        "updatedAt": "2023-12-17T06:40:55.000Z",
+        "name": "lamborgyni GT350",
+        "category": "vehiculo",
+        "price": 500000,
+        "currency": "dolar",
+        "stock": 10,
+        "status": false,
+        "description": "lamborgyni zentorno",
+        "image": "zentorno.jpg"
+    }
+}
+
+{
+    "msg": "Estado cambiado a true",
+    "product": {
+        "id": "a57f4c7b-83a7-4b1c-b5fb-479d85c2ae30",
+        "createdAt": "2023-12-17T01:22:20.541Z",
+        "updatedAt": "2023-12-17T06:41:26.000Z",
+        "name": "lamborgyni GT350",
+        "category": "vehiculo",
+        "price": 500000,
+        "currency": "dolar",
+        "stock": 10,
+        "status": true,
+        "description": "lamborgyni zentorno",
+        "image": "zentorno.jpg",
+        "updatedBy": "65adaa17-a9cf-4513-95b9-1e63ec602066"
+    }
+}
+```
+Error: 401
+```
+{error: 'Missing token'}
+{error: 'Invalid Beare token'}
+{error: 'Invalid token'}
+
+{msg: "User can't complete this accition, because is not admin "}
+```
+Error: 500
+```
+{
+    msg: "Error al obtener los datos solicitados",
+    error: error.message,
+}
+```
+### */api/products/:category*
+Ruta derivada de la principar para operar los productos cuya caracteristica sea igual a la enviada en los parametros
+
+#### GET
+cURL:
+```bash
+curl -H "Authorization: Bearer $token" -X GET /api/products/vehiculo
+```
+success:
+```bash
+{
+    "msg": "productos encontrados con la categoria: vehiculo",
+    "products": [
+        {
+            "id": "a57f4c7b-83a7-4b1c-b5fb-479d85c2ae30",
+            "createdAt": "2023-12-17T01:22:20.541Z",
+            "updatedAt": "2023-12-17T01:22:20.541Z",
+            "name": "lamborgyni GT350",
+            "category": "vehiculo",
+            "price": 500000,
+            "currency": "dolar",
+            "stock": 10,
+            "status": true,
+            "description": "lamborgyni zentorno",
+            "image": "zentorno.jpg"
+        }
+    ]
+}
+```
+Error: 401
+```
+{error: 'Missing token'}
+{error: 'Invalid Beare token'}
+{error: 'Invalid token'}
+
+{msg: "User can't complete this accition, because is not admin "}
+```
+Error: 500
+```
+{
+    msg: "Error al obtener los datos solicitados",
+    error: error.message,
+}
+```
