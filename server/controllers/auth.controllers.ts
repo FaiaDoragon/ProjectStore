@@ -13,6 +13,8 @@ export class AuthController {
       try{
 	 const {user, token} = await this.authService.login({correo, password});
 
+	    console.log(token)
+
 	 res.cookie('token', token);
 	 res.json({user});
       }catch(error: any) {

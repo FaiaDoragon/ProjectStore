@@ -1,6 +1,5 @@
 import { db } from "../database/dbconnection";
 import { BcryptAdapter, JwtAdapter } from "../helpers";
-import { UuidAdapter } from "../helpers/uuid.adapter";
 import { User } from "../models/user.entity";
 
 interface LoginDto {
@@ -37,9 +36,17 @@ export class AuthService {
 	    id: user?.id, 
 	    status: user?.status
 	 });
+	 
+	 const userRelevantData = {
+	    id: user?.id,
+	    name: user?.name,
+	    lastname: user?.lastname,
+	    correo: user?.correo,
+	    Rol: user?.Rol
+	 }
 
 	 return {
-	    user,
+	    user: userRelevantData,
 	    token
 	 }
 
@@ -47,7 +54,7 @@ export class AuthService {
 	 // Verifica que el error no sea un error del sistema y arroja el custom error
 	 //TODO: mejorar el manejo de este error
 	 if(error instanceof Error) { 
-	 // Si es una excepción se inprime el error y arroja un custom error
+	 // Si es una excepción se imprime el error y arroja un custom error
 	 console.log(error);
 	 throw 'Internal Server Error'
 	 }
@@ -74,8 +81,16 @@ export class AuthService {
 	 // Guarda el nuevo usuario en la db
 	 await newUser.save();
 
+	 const userRelevantData = {
+	    id: newUser?.id,
+	    name: newUser?.name,
+	    lastname: newUser?.lastname,
+	    correo: newUser?.correo,
+	    Rol: newUser?.Rol
+	 }
+
 	 return {
-	    user: newUser,
+	    user: userRelevantData,
 	    token
 	 }
       }catch(error) {
