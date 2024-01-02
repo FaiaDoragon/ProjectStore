@@ -39,7 +39,7 @@ export class UserService {
 	    prev: (page-1 >= 0) ? `/api/users?limit=${limit}&page=${page-1}` : null,
 	    limit, page,
 	    total,
-	    users
+	    users: users.map( ({password, ...user}) => user)
 	 };
       }catch(error) {
 	 console.log(error);
@@ -55,6 +55,9 @@ export class UserService {
 	       where: {
 		  status: false
 	       },
+	       select: {
+		  password: false	  
+	       },
 	       take: limit,
 	       skip: page
 	    })
@@ -65,7 +68,7 @@ export class UserService {
 	    prev: (page-1 >= 0) ? `/api/users?limit=${limit}&page=${page-1}` : null,
 	    limit, page,
 	    total,
-	    users
+	    users: users.map( ({password, ...user}) => user)
 	 };
       }catch(error) {
 	 console.log(error);
@@ -78,7 +81,10 @@ export class UserService {
       try{
 	 const userDb = await this.getUserById(id);
 
-	 data.password = BcryptAdapter.hash(data.password)
+	 if(data.password) { // Update password if it comes
+	    data.password = BcryptAdapter.hash(data.password)
+	 }
+
 	 const dataToUpdate = {
 	    ...data,
 	    updatedAt: new Date() 
@@ -86,7 +92,9 @@ export class UserService {
 	 const user = this.datasource.getRepository(User).merge(userDb!, dataToUpdate);
 	 await user.save()
 
-	 return user;
+	 const { password, status, ...userRelevantData } = user;
+
+	 return userRelevantData;
       }catch(error) {
 	 console.log(error);
 	 throw 'Internal Server Error';
@@ -100,7 +108,9 @@ export class UserService {
 	 const user = this.datasource.getRepository(User).merge(userDb!, {status: false});
 	 await user.save();
 
-	 return user;
+	 const { password, status, ...userRelevantData } = user;
+
+	 return userRelevantData;
       }catch(error) {
 	 console.log(error)
 	 throw 'Internal Server Error'

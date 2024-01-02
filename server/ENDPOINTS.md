@@ -28,9 +28,7 @@ Success:
         "name":"John",
         "lastname":"Doe",
         "correo":"john@gmail.com",
-        "password":"$2b$10$1sePZ8fZ6sRokGQ7DfLsK.o5F/h82Mo.awtm7ffI2KJDiWwVXJU3G",
         "Rol":true,
-        "status":true
     }
 }
 ```
@@ -69,9 +67,7 @@ Success:
         "name":"John",
         "lastname":"Doe",
         "correo":"john@gmail.com",
-        "password":"$2b$10$1sePZ8fZ6sRokGQ7DfLsK.o5F/h82Mo.awtm7ffI2KJDiWwVXJU3G",
         "Rol":true,
-        "status":true
     }
 }
 ```
@@ -128,7 +124,6 @@ Success:
         "name":"John",
         "lastname":"Doe",
         "correo":"john2@gmail.com",
-        "password":"$2b$10$anNGCU.kVM8hIZ0vgwlNge1p5qFgVfrLxWRaFq6MSodKkvmLuZWPC",
         "status":true,
         "Rol":true
         }]
@@ -167,7 +162,6 @@ Success:
         "name":"John",
         "lastname":"Doe",
         "correo":"john2@gmail.com",
-        "password":"$2b$10$anNGCU.kVM8hIZ0vgwlNge1p5qFgVfrLxWRaFq6MSodKkvmLuZWPC",
         "status":false,
         "Rol":true
         }]
@@ -204,9 +198,7 @@ Success:
         "name":"Jane",
         "lastname":"Doe",
         "correo":"john@gmail.com",
-        "password":"$2b$10$1sePZ8fZ6sRokGQ7DfLsK.o5F/h82Mo.awtm7ffI2KJDiWwVXJU3G",
         "Rol":true,
-        "status":true
     }
 }
 ```
@@ -263,7 +255,6 @@ Success:
         "correo":"john@gmail.com",
         "password":"$2b$10$1sePZ8fZ6sRokGQ7DfLsK.o5F/h82Mo.awtm7ffI2KJDiWwVXJU3G",
         "Rol":true,
-        "status": false
     }
 }
 ```
